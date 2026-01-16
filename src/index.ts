@@ -132,9 +132,9 @@ let tempDir: string | null = null;
     }
 
     let targetAgents: AgentType[];
+    const validAgents = Object.keys(agents);
 
     if (options.agent && options.agent.length > 0) {
-      const validAgents = ['opencode', 'claude-code', 'codex', 'cursor', 'antigravity', 'roo',  'github-copilot'];
       const invalidAgents = options.agent.filter(a => !validAgents.includes(a));
 
       if (invalidAgents.length > 0) {
@@ -152,7 +152,7 @@ let tempDir: string | null = null;
 
       if (installedAgents.length === 0) {
         if (options.yes) {
-          targetAgents = ['opencode', 'claude-code', 'codex', 'cursor', 'antigravity', 'roo', 'github-copilot'];
+          targetAgents = validAgents as AgentType[];
           p.log.info('Installing to all agents (none detected)');
         } else {
           p.log.warn('No coding agents detected. You can still install skills.');
